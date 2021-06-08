@@ -1,17 +1,25 @@
 package interfaceGraphique;
 import javax.swing.*;
 
-public class Main {
+public class Main extends JFrame {
+	JToolBar barre = new JToolBar ();
+	JButton deconnexion = new JButton("Deconnexion");
+	JTabbedPane tp = new JTabbedPane();
+	
 	public Main() {
-		JFrame mainFrame = new JFrame();
-		mainFrame.setBounds(0,0,600,300);
-		mainFrame.setVisible(true);
-		JTabbedPane tp = new JTabbedPane();
-		JPanel p1 = new JPanel();
-		JPanel p2 = new JPanel();
-		tp.setBounds(0,0,600,300);
+		ajouterComposants();
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLayout(null);
+		this.setBounds(0,0,600,600);
+	}
+	
+	public void ajouterComposants() {
+		barre.add(deconnexion);
+		barre.setRollover(true);
+		barre.setBounds(0,0,600,30);
+		tp.setBounds(0,30,600,570);
+		this.add(barre);
+		this.add(tp);
 		tp.add("Clients", new InterfaceClient());
-		tp.add(p2);
-		mainFrame.add(tp);
 	}
 }

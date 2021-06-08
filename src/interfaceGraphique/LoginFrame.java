@@ -19,7 +19,7 @@ public class LoginFrame extends JFrame implements ActionListener {
     {
        //Calling methods inside constructor.
         setLocationAndSize();
-        addComponentsToContainer();
+        ajouterComposants();
         loginButton.addActionListener(this);
         this.setLayout(null);
         this.setTitle("Login Form");
@@ -36,10 +36,10 @@ public class LoginFrame extends JFrame implements ActionListener {
         passwordLabel.setBounds(50,220,100,30);
         userTextField.setBounds(150,150,150,30);
         passwordField.setBounds(150,220,150,30);
-        loginButton.setBounds(50,300,100,30);
+        loginButton.setBounds(135,300,100,30);
     }
     
-    public void addComponentsToContainer()
+    public void ajouterComposants()
     {
        //Adding each components to the Container
         this.add(userLabel);
@@ -64,7 +64,7 @@ public class LoginFrame extends JFrame implements ActionListener {
             		if(loginText.equals(rs.getString(1)) && pwdText.equals(rs.getString(2))) {
                         JOptionPane.showMessageDialog(this, "Connecté avec succés!");
                         this.setVisible(false);
-            			new Main();
+            			new Main().setVisible(true);
             			return;
             		}
             	}

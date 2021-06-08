@@ -5,6 +5,6 @@ import interfaceGraphique.*;
 public class Testing {
 	public static void main(String args[]) {
         //new LoginFrame();
-		new Main();
+		new Main().setVisible(true);
 	}
 }
