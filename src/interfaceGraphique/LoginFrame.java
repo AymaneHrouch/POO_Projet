@@ -59,7 +59,7 @@ public class LoginFrame extends JFrame implements ActionListener {
             	Class.forName("com.mysql.cj.jdbc.Driver");
             	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/poo_db","root","");
             	Statement stmt = con.createStatement();
-            	ResultSet rs = stmt.executeQuery("select login, pwd from users"); 
+            	ResultSet rs = DB.executeQuery("select login, pwd from users"); 
             	while(rs.next()){
             		if(loginText.equals(rs.getString(1)) && pwdText.equals(rs.getString(2))) {
                         JOptionPane.showMessageDialog(this, "Connecté avec succés!");

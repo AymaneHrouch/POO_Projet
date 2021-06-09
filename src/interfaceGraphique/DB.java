@@ -2,6 +2,7 @@ package interfaceGraphique;
 import javax.swing.JFrame;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -21,5 +22,23 @@ public class DB {
         	Util.AfficherErreur(new JFrame(), ex.getMessage());
             System.exit(1);
         }
+	}
+	
+	public static int executeUpdate(String req) {
+		try {
+			return stmt.executeUpdate(req);
+		} catch (SQLException e) {
+			Util.AfficherErreur(null, "Erreur lors de l'execution de la requete" + e.getMessage());
+			return -1;
+		}
+	}
+	
+	public static ResultSet executeQuery(String req) {
+		try {
+			return stmt.executeQuery(req);
+		} catch (SQLException e) {
+			Util.AfficherErreur(null, "Erreur lors de l'execution de la requete" + e.getMessage());
+			return null;
+		}
 	}
 }

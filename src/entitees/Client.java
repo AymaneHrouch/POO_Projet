@@ -1,8 +1,17 @@
 package entitees;
+
 public class Client {
-		int numeroClient;
-		String nom;
-		String prenom;
-		String addresse;
-		int telephone;
+		public int numeroClient;
+		public String nom;
+		public String prenom;
+		public String adresse;
+		public String telephone;
+		
+		public Client() {
+			numeroClient = 0;			
+			nom = "";
+			prenom = "";
+			adresse = "";
+			telephone = "";
+		}
 }

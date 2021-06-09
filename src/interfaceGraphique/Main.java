@@ -32,6 +32,7 @@ public class Main extends JFrame {
 		this.add(tp);
 	}
 	
+	
 	public void afficher() {
 		tp.add("Clients", new InterfaceClient());
 		this.setVisible(true);
