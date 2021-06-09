@@ -19,13 +19,14 @@ import entitees.Client;
 public class InterfaceClient extends Panel {
 	Client cl = new Client();
 	
-	
 	public InterfaceClient() {
 		super();
+		tableName = "client";
 		idText = "numeroclient";
-		initTableau(new String[] { idText, "Nom", "Prenom", "Adresse", "Telephone"});
+		tableHeader = new String[] { idText, "Nom", "Prenom", "Adresse", "Telephone"};
+		initTableau(tableHeader);
 		idLabel.setText(idText + ": ");
-		chargerTableau(4, "SELECT * FROM client");
+		chargerTableau(tableHeader.length, "SELECT * FROM client ORDER BY " + idText);
 	}
 
 	public void setLabels() {
@@ -45,11 +46,12 @@ public class InterfaceClient extends Panel {
     	return false;
 		}
 		
+		// dont copy code below
 		if(!txtFields[3].getText().matches("\\d{10}")) { // Si le telephone contenir quelque chose autre que des nombres.
 			JOptionPane.showMessageDialog(null, "Telephone doit contenir 10 nombres.", "Nombre de telephone invalide.", JOptionPane.INFORMATION_MESSAGE);
 			return false;
 		}
-		
+		// dont copy code above
 		return true;
 	}
 	
@@ -66,13 +68,17 @@ public class InterfaceClient extends Panel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				verifier();
+				
+				// modify code below
 				remplirClient();
 				// Remplir les information de client.
 				String requete = "INSERT INTO Client(nom,prenom,adresse,telephone)"
-						+ "VALUES('" + cl.nom + "', '" + cl.prenom + "', '" + cl.adresse + "', '" + cl.telephone + "')";
-
-				DB.executeUpdate(requete);
-				ajouterLigne(4, "SELECT * FROM client ORDER BY numeroclient DESC LIMIT 1");
+						+ "VALUES('" + cl.nom + "', '" + cl.prenom + "', '" + 
+						cl.adresse + "', '" + cl.telephone + "')";
+				DB.executeUpdate(requete); // not this
+				ajouterLigne(tableHeader.length, "SELECT * FROM client ORDER BY numeroclient DESC LIMIT 1");
+				// modify code above
+				clearTextFields();
 			}
 		});
 		
@@ -81,26 +87,26 @@ public class InterfaceClient extends Panel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				model = (DefaultTableModel) tb.getModel();
-				// TODO Auto-generated method stub
 				String id = idTF.getText();
 				if(!verifierId(id , idText) || !verifier()) return;
+				int y = getRow(id);
+				if(y == -1) {
+					JOptionPane.showMessageDialog(null,  idText + " Inexistant");
+					return;
+				}
+				// edit code below
 				remplirClient();
 				String requete = "UPDATE client"
 						+ " SET nom= '" + cl.nom + "'"
 						+ ", prenom= '" + cl.prenom + "'"
 						+ ", adresse= '" + cl.adresse + "'"
 						+ ", telephone= '" + cl.telephone + "'"
-						+ " WHERE numeroclient=3";
-				int y = getRow(id);
-				if(y == -1) {
-					JOptionPane.showMessageDialog(null,  idText + " Inexistant");
-					return;
-				}
+						+ " WHERE numeroclient=" + id;
+				// edit code above
 				
 				DB.executeUpdate(requete);
 				modifierLigne(new String[] {id, cl.nom, cl.prenom, cl.adresse, cl.telephone}, y);
 			}
 		});
-	
 	}
 }

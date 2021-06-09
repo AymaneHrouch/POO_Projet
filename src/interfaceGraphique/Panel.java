@@ -27,7 +27,9 @@ public abstract class Panel extends JPanel {
 	abstract public boolean verifier();
 	
 	public String idText;
-		
+	String[] tableHeader = null;
+	String tableName = "";
+	
 	JPanel jPanel1 = new JPanel(),
 			jPanel2 = new JPanel();
 	
@@ -59,15 +61,7 @@ public abstract class Panel extends JPanel {
 		setLocationAndSize();
 		EcouterBoutons();
 	}
-//	
-//    private JLabel[] createLabels(){
-//        JLabel[] labels=new JLabel[10];
-//        for (int i=0;i<4;i++){
-//            labels[i]=new JLabel("message" + i);
-//        }
-//        return labels;
-//    }
-	
+
 	public void setLocationAndSize() {
 		jPanel1.setBounds(0,0,300,570);
 		jPanel2.setBounds(300,0,800,570);
@@ -138,6 +132,7 @@ public abstract class Panel extends JPanel {
 						valeur = table.getModel().getValueAt(row, i).toString();
 						txtFields[i-1].setText(valeur);
 					}
+					idTF.setText(table.getModel().getValueAt(row, 0).toString());
 				}
 			}
 		});
@@ -148,8 +143,8 @@ public abstract class Panel extends JPanel {
 		try {
 			ResultSet rs = DB.executeQuery(requete);
 			while(rs.next()) {
-		        Object[] ligne = new Object[tableauLength+1];
-		        for(int i = 0; i < tableauLength + 1; i++) {
+		        Object[] ligne = new Object[tableauLength];
+		        for(int i = 0; i < tableauLength; i++) {
 		        	ligne[i] = rs.getString(i+1);
 		        }
 		        model.addRow(ligne);
@@ -164,8 +159,8 @@ public abstract class Panel extends JPanel {
 		try {
 			ResultSet rs = DB.executeQuery(requete);
 			rs.next();
-	        Object[] ligne = new Object[tableauLength+1];
-	        for(int i=0; i < tableauLength + 1; i++) {
+	        Object[] ligne = new Object[tableauLength];
+	        for(int i=0; i < tableauLength; i++) {
 	        	ligne[i] = rs.getString(i+1);
 			}
 	        model.addRow(ligne);
@@ -186,12 +181,12 @@ public abstract class Panel extends JPanel {
 	}
 	
 	public boolean verifierId(String id, String label) {
-		if(!id.matches("\\d+")) {
-			JOptionPane.showMessageDialog(null, label + " doit être un nombre entier.");
-			return false;
-		}
 		if(id.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Veuillez Entrer le " + idText);
+			return false;
+		}
+		if(!id.matches("\\d+")) {
+			JOptionPane.showMessageDialog(null, label + " doit être un nombre entier.");
 			return false;
 		}
 		return true;
@@ -217,7 +212,7 @@ public abstract class Panel extends JPanel {
 				// TODO Auto-generated method stub
 				String id = idTF.getText();
 				if(!verifierId(id , idText)) return;
-				String requete = "DELETE FROM Client WHERE " + idText + "=" + id;
+				String requete = "DELETE FROM " + tableName + " WHERE " + idText + "=" + id;
 				int y = getRow(id);
 				if(y == -1) {
 					JOptionPane.showMessageDialog(null,  idText + " Inexistant");
@@ -228,5 +223,11 @@ public abstract class Panel extends JPanel {
 				DB.executeUpdate(requete);
 			}
 		});
+	}
+	
+	public void clearTextFields() {
+		for(int i=0; i < 4; i++) {
+			txtFields[i].setText("");
+		}
 	}
 }
