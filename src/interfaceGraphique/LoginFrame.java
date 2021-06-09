@@ -64,7 +64,7 @@ public class LoginFrame extends JFrame implements ActionListener {
             		if(loginText.equals(rs.getString(1)) && pwdText.equals(rs.getString(2))) {
                         JOptionPane.showMessageDialog(this, "Connecté avec succés!");
                         this.setVisible(false);
-            			new Main().setVisible(true);
+            			new Main().afficher();
             			return;
             		}
             	}
