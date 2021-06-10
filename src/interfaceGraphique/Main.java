@@ -35,9 +35,13 @@ public class Main extends JFrame {
 	
 	public void afficher() {
 		tp.add("Clients", new InterfaceClient());
+		tp.add("Produits", new InterfaceProduit());
+		tp.add("Commandes", new InterfaceCommande());
+		tp.add("Livraisons", new InterfaceLivraison());
+		tp.add("Factures", new InterfaceFacture());
 		this.setVisible(true);
 	}
-	
+	 
 	public void deconnexion() {
 		this.setVisible(false);
 	}

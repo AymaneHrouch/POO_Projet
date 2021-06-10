@@ -37,7 +37,7 @@ public class InterfaceClient extends Panel {
 	}
 	
 	public boolean verifier() {
-		if( txtFields[0].getText().isEmpty() ||
+		if( txtFields[0].getText().isEmpty() || 
 			txtFields[1].getText().isEmpty() ||
 			txtFields[2].getText().isEmpty() ||
 			txtFields[3].getText().isEmpty()
@@ -67,7 +67,7 @@ public class InterfaceClient extends Panel {
 		btnAjouter.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				verifier();
+				if(!verifier()) return;
 				
 				// modify code below
 				remplirClient();

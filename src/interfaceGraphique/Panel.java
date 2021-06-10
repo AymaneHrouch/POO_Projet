@@ -30,6 +30,8 @@ public abstract class Panel extends JPanel {
 	String[] tableHeader = null;
 	String tableName = "";
 	
+	JLabel dateFormat = new JLabel("(YYYY-MM-DD)");
+	
 	JPanel jPanel1 = new JPanel(),
 			jPanel2 = new JPanel();
 	
@@ -67,6 +69,7 @@ public abstract class Panel extends JPanel {
 		jPanel2.setBounds(300,0,800,570);
 		
 		jLabels[0].setBounds(50, 30, 100, 30);
+		dateFormat.setBounds(50, 45, 100, 30);
 		jLabels[1].setBounds(50, 90, 100, 30);
 		jLabels[2].setBounds(50, 150, 100, 30);
 		jLabels[3].setBounds(50, 210, 100, 30);
@@ -86,9 +89,11 @@ public abstract class Panel extends JPanel {
 	
 	public void ajouterComposants() {
 		jPanel1.add(jLabels[0]);
+		jPanel1.add(dateFormat);
+		dateFormat.setVisible(false);
 		jPanel1.add(jLabels[1]);
 		jPanel1.add(jLabels[2]);
-		jPanel1.add(jLabels[3]);
+		jPanel1.add(jLabels[3]); 
 		jPanel1.add(txtFields[0]);
 		jPanel1.add(txtFields[1]);
 		jPanel1.add(txtFields[2]);
@@ -122,18 +127,16 @@ public abstract class Panel extends JPanel {
 	public void ecouterTable(JTable table) {
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2) {
-					tb.setSelectionBackground(Color.red);
-					JTable target = (JTable)e.getSource();
-					int row = target.getSelectedRow();
-					int columnCount = target.getColumnCount();
-					String valeur = "";
-					for(int i=1; i<columnCount; i++) {
-						valeur = table.getModel().getValueAt(row, i).toString();
-						txtFields[i-1].setText(valeur);
-					}
-					idTF.setText(table.getModel().getValueAt(row, 0).toString());
+				tb.setSelectionBackground(Color.red);
+				JTable target = (JTable)e.getSource();
+				int row = target.getSelectedRow();
+				int columnCount = target.getColumnCount();
+				String valeur = "";
+				for(int i=1; i<columnCount; i++) {
+					valeur = table.getModel().getValueAt(row, i).toString();
+					txtFields[i-1].setText(valeur);
 				}
+				idTF.setText(table.getModel().getValueAt(row, 0).toString());
 			}
 		});
 	}

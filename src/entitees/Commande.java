@@ -2,6 +2,19 @@ package entitees;
 import java.util.Date;
 
 public class Commande {
-	int numerocommande;
-	Date datecommande;
+		public int numerocommande;
+		public String datecommande;
+		public int fk_numeroclient;
+		public int fk_numeroproduit;
+		
+		
+		public Commande() {
+			numerocommande = 0;
+			datecommande = "";
+			fk_numeroclient = 0;
+			fk_numeroproduit = 0;
+			 
+		
+		
+	}
 }
