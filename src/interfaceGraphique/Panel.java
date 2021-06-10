@@ -180,18 +180,20 @@ public abstract class Panel extends JPanel {
 	}
 	
 	public void donneesIncompleteFenetre() {
-		JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs.", "Données incomplétes.", JOptionPane.INFORMATION_MESSAGE);
+		Util.afficherInfo("Veuillez remplir tous les champs.", "Données incomplétes.");
 	}
 	
 	public boolean verifierId(String id, String label) {
 		if(id.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Veuillez Entrer le " + idText);
+			Util.afficherInfo("Veuillez Entrer le " + idText);
 			return false;
 		}
+		
 		if(!id.matches("\\d+")) {
-			JOptionPane.showMessageDialog(null, label + " doit être un nombre entier.");
+			Util.afficherInfo(label + " doit être un nombre entier.");
 			return false;
 		}
+		
 		return true;
 	}
 	
@@ -218,7 +220,7 @@ public abstract class Panel extends JPanel {
 				String requete = "DELETE FROM " + tableName + " WHERE " + idText + "=" + id;
 				int y = getRow(id);
 				if(y == -1) {
-					JOptionPane.showMessageDialog(null,  idText + " Inexistant");
+					Util.afficherInfo(idText + " Inexistant");
 					return;
 				}
 				model = (DefaultTableModel) tb.getModel();

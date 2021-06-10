@@ -46,12 +46,10 @@ public class InterfaceClient extends Panel {
     	return false;
 		}
 		
-		// dont copy code below
 		if(!txtFields[3].getText().matches("\\d{10}")) { // Si le telephone contenir quelque chose autre que des nombres.
-			JOptionPane.showMessageDialog(null, "Telephone doit contenir 10 nombres.", "Nombre de telephone invalide.", JOptionPane.INFORMATION_MESSAGE);
+			Util.afficherInfo("Telephone doit contenir 10 nombres.", "Nombre de telephone invalide.");
 			return false;
 		}
-		// dont copy code above
 		return true;
 	}
 	
@@ -69,15 +67,13 @@ public class InterfaceClient extends Panel {
 			public void actionPerformed(ActionEvent e) {
 				if(!verifier()) return;
 				
-				// modify code below
 				remplirClient();
 				// Remplir les information de client.
 				String requete = "INSERT INTO Client(nom,prenom,adresse,telephone)"
 						+ "VALUES('" + cl.nom + "', '" + cl.prenom + "', '" + 
 						cl.adresse + "', '" + cl.telephone + "')";
-				DB.executeUpdate(requete); // not this
+				DB.executeUpdate(requete);
 				ajouterLigne(tableHeader.length, "SELECT * FROM client ORDER BY numeroclient DESC LIMIT 1");
-				// modify code above
 				clearTextFields();
 			}
 		});
@@ -91,10 +87,9 @@ public class InterfaceClient extends Panel {
 				if(!verifierId(id , idText) || !verifier()) return;
 				int y = getRow(id);
 				if(y == -1) {
-					JOptionPane.showMessageDialog(null,  idText + " Inexistant");
+					Util.afficherInfo(idText + " Inexistant");
 					return;
 				}
-				// edit code below
 				remplirClient();
 				String requete = "UPDATE client"
 						+ " SET nom= '" + cl.nom + "'"
@@ -102,7 +97,6 @@ public class InterfaceClient extends Panel {
 						+ ", adresse= '" + cl.adresse + "'"
 						+ ", telephone= '" + cl.telephone + "'"
 						+ " WHERE numeroclient=" + id;
-				// edit code above
 				
 				DB.executeUpdate(requete);
 				modifierLigne(new String[] {id, cl.nom, cl.prenom, cl.adresse, cl.telephone}, y);

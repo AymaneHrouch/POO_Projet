@@ -15,11 +15,11 @@ public class DB {
         	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/poo_db","root","");
         	stmt = con.createStatement();
         } catch(ClassNotFoundException ex) {
-        	Util.AfficherErreur(new JFrame(),"Erreur lors de chargement de drive: " + ex.getMessage());
+        	Util.afficherErreur("Erreur lors de chargement de drive: " + ex.getMessage());
             System.exit(1);
         }
         catch(SQLException ex) {
-        	Util.AfficherErreur(new JFrame(), ex.getMessage());
+        	Util.afficherErreur(ex.getMessage());
             System.exit(1);
         }
 	}
@@ -28,7 +28,7 @@ public class DB {
 		try {
 			return stmt.executeUpdate(req);
 		} catch (SQLException e) {
-			Util.AfficherErreur(null, "Erreur lors de l'execution de la requete" + e.getMessage());
+			Util.afficherErreur("Erreur lors de l'execution de la requete" + e.getMessage());
 			return -1;
 		}
 	}
@@ -37,7 +37,7 @@ public class DB {
 		try {
 			return stmt.executeQuery(req);
 		} catch (SQLException e) {
-			Util.AfficherErreur(null, "Erreur lors de l'execution de la requete" + e.getMessage());
+			Util.afficherErreur("Erreur lors de l'execution de la requete" + e.getMessage());
 			return null;
 		}
 	}

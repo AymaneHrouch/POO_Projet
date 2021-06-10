@@ -46,12 +46,12 @@ public class InterfaceProduit extends Panel {
 		}
 		
 		if(!txtFields[1].getText().matches("\\d*")) {
-			JOptionPane.showMessageDialog(null, "La quantité doit être un nombre entier.", "Quantité invalide.", JOptionPane.INFORMATION_MESSAGE);
+			Util.afficherInfo("La quantite doit etre un nombre entier.", "Quantite invalide.");
 			return false;
 		}
 
 		if(!txtFields[2].getText().matches("[\\d\\.]*")) {
-			JOptionPane.showMessageDialog(null, "Le prix doit être un nombre réel.", "Prix invalide.", JOptionPane.INFORMATION_MESSAGE);
+			Util.afficherInfo("Le prix doit ï¿½tre un nombre rï¿½el.", "Prix invalide.");
 			return false;
 		}
 		
@@ -71,15 +71,14 @@ public class InterfaceProduit extends Panel {
 			public void actionPerformed(ActionEvent e) {
 				verifier();
 				
-				// modify code below
 				remplirProduit();
-				// Remplir les information de produit.
+
 				String requete = "INSERT INTO Produit(nomproduit,quantite,prix)"
 						+ "VALUES('" + prd.nomproduit + "', '" + 
 						prd.quantite + "', '" + prd.prix + "')";
-				DB.executeUpdate(requete); // not this
+				DB.executeUpdate(requete); 
 				ajouterLigne(tableHeader.length, "SELECT * FROM produit ORDER BY numeroproduit DESC LIMIT 1");
-				// modify code above
+
 				clearTextFields();
 			}
 		});
@@ -93,17 +92,16 @@ public class InterfaceProduit extends Panel {
 				if(!verifierId(id , idText) || !verifier()) return;
 				int y = getRow(id);
 				if(y == -1) {
-					JOptionPane.showMessageDialog(null,  idText + " Inexistant");
+					Util.afficherInfo(idText + " Inexistant");
 					return;
 				}
-				// edit code below
+				
 				remplirProduit();
 				String requete = "UPDATE produit"
 						+ " SET nomproduit= '" + prd.nomproduit + "'"
 						+ ", quantite= '" + prd.quantite + "'"
 						+ ", prix= '" + prd.prix + "'"
 						+ " WHERE numeroproduit=" + id;
-				// edit code above
 				
 				DB.executeUpdate(requete);
 				modifierLigne(new String[] {id, prd.nomproduit, Integer.toString(prd.quantite), Double.toString(prd.prix)}, y);

@@ -19,7 +19,6 @@ import entitees.Commande;
 public class InterfaceCommande extends Panel {
 	Commande cmd = new Commande();
 	
-	
 	public InterfaceCommande() {
 		super();
 		txtFields[3].setVisible(false);
@@ -42,24 +41,27 @@ public class InterfaceCommande extends Panel {
 		if( txtFields[0].getText().isEmpty() ||
 			txtFields[1].getText().isEmpty() ||
 			txtFields[2].getText().isEmpty()	
-	) {
-    	donneesIncompleteFenetre();
-    	return false;
+		) {
+	    	donneesIncompleteFenetre();
+	    	return false;
 		}
 		
 		if(!txtFields[0].getText().matches("[1-9][0-9]{3}-[01][1-9]-[0-3][0-9]")) {
 			System.out.println(txtFields[0].getText());
-			JOptionPane.showMessageDialog(null, "La date de commande doit etre une date !.", "Date invalide.", JOptionPane.INFORMATION_MESSAGE);
+			Util.afficherInfo("La date de commande doit etre une date !.", "Date invalide.");
 			return false;
 		}
+		
 		if(!txtFields[1].getText().matches("\\d*")) {
-			JOptionPane.showMessageDialog(null, "Le numero de client doit être un nombre entier.", "Numero invalide.", JOptionPane.INFORMATION_MESSAGE);
+			Util.afficherInfo("Le numero de client doit ï¿½tre un nombre entier.", "Numero invalide.");
 			return false;
 		}
+		
 		if(!txtFields[2].getText().matches("\\d*")) {
-			JOptionPane.showMessageDialog(null, "Le numero de produit doit être un nombre entier.", "Numero invalide.", JOptionPane.INFORMATION_MESSAGE);
+			Util.afficherInfo("Le numero de produit doit ï¿½tre un nombre entier.", "Numero invalide.");
 			return false;
-		}	
+		}
+		
 		return true;
 	}
 	
@@ -76,15 +78,13 @@ public class InterfaceCommande extends Panel {
 			public void actionPerformed(ActionEvent e) {
 				if(!verifier()) return;
 				
-				// modify code below
 				remplirCommande();
 				// Remplir les information de commande.
 				String requete = "INSERT INTO Commande(datecommande,numeroclient,numeroproduit)"
 						+ "VALUES('" + cmd.datecommande + "', '" + 
 						cmd.fk_numeroclient + "', '" + cmd.fk_numeroproduit + "')";
-				DB.executeUpdate(requete); // not this
+				DB.executeUpdate(requete);
 				ajouterLigne(tableHeader.length, "SELECT * FROM commande ORDER BY numerocommande DESC LIMIT 1");
-				// modify code above
 				clearTextFields();
 			}
 		});
@@ -98,17 +98,15 @@ public class InterfaceCommande extends Panel {
 				if(!verifierId(id , idText) || !verifier()) return;
 				int y = getRow(id);
 				if(y == -1) {
-					JOptionPane.showMessageDialog(null,  idText + " Inexistant");
+					Util.afficherInfo(idText + " Inexistant");
 					return;
 				}
-				// edit code below
 				remplirCommande();
 				String requete = "UPDATE commande"
 						+ " SET nom= '" + cmd.datecommande + "'"
 						+ ", prenom= '" + cmd.fk_numeroclient + "'"
 						+ ", adresse= '" + cmd.fk_numeroproduit + "'"
 						+ " WHERE numerocommande=" + id;
-				// edit code above
 				
 				DB.executeUpdate(requete);
 				modifierLigne(new String[] {id, cmd.datecommande,  Integer.toString(cmd.fk_numeroclient),  Integer.toString(cmd.fk_numeroproduit)}, y);

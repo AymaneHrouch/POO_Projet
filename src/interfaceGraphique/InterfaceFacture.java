@@ -46,15 +46,14 @@ public class InterfaceFacture extends Panel {
 		}
 		if(!txtFields[0].getText().matches("[1-9][0-9]{3}-[01][1-9]-[0-3][0-9]")) {
 			System.out.println(txtFields[0].getText());
-			JOptionPane.showMessageDialog(null, "La date de facture doit etre une date !.", "Date invalide.", JOptionPane.INFORMATION_MESSAGE);
+			Util.afficherInfo("La date de facture doit etre une date !.", "Date invalide.");
 			return false;
 		}
 		if(!txtFields[1].getText().matches("\\d*")) {
-			JOptionPane.showMessageDialog(null, "Le numero de commande doit être un nombre entier.", "Numero invalide.", JOptionPane.INFORMATION_MESSAGE);
+			Util.afficherInfo("Le numero de commande doit ï¿½tre un nombre entier.", "Numero invalide.");
 			return false;
 		
 		}
-		// dont copy code above
 		return true;
 	}
 	
@@ -71,15 +70,12 @@ public class InterfaceFacture extends Panel {
 			public void actionPerformed(ActionEvent e) {
 				if(!verifier()) return;
 				
-				// modify code below
 				remplirFacture();
-				// Remplir les information de facture.
 				String requete = "INSERT INTO Facture(datefacture,montant,numerocommande)"
 						+ "VALUES('" + fct.dateFacture + "', '" + 
 						fct.montant + "', '" + fct.fk_numerocommande + "')";
-				DB.executeUpdate(requete); // not this
+				DB.executeUpdate(requete); 
 				ajouterLigne(tableHeader.length, "SELECT * FROM facture ORDER BY numerofacture DESC LIMIT 1");
-				// modify code above
 				clearTextFields();
 			}
 		});
@@ -93,17 +89,15 @@ public class InterfaceFacture extends Panel {
 				if(!verifierId(id , idText) || !verifier()) return;
 				int y = getRow(id);
 				if(y == -1) {
-					JOptionPane.showMessageDialog(null,  idText + " Inexistant");
+					Util.afficherInfo(idText + " Inexistant");
 					return;
 				}
-				// edit code below
 				remplirFacture();
 				String requete = "UPDATE facture"
 						+ " SET nom= '" +fct.dateFacture + "'"
 						+ ", prenom= '" + fct.montant + "'"
 						+ ", adresse= '" + fct.fk_numerocommande + "'"
 						+ " WHERE numeroclient=" + id;
-				// edit code above
 				
 				DB.executeUpdate(requete);
 				modifierLigne(new String[] {id, fct.dateFacture, Double.toString(fct.montant),Integer.toString(fct.fk_numerocommande)}, y);

@@ -23,10 +23,10 @@ public class LoginFrame extends JFrame implements ActionListener {
         loginButton.addActionListener(this);
         this.setLayout(null);
         this.setTitle("Login Form");
-        this.setVisible(true);
         this.setBounds(10,10,370,600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
+        this.setVisible(true);
     }
     
     public void setLocationAndSize()
@@ -62,19 +62,19 @@ public class LoginFrame extends JFrame implements ActionListener {
             	ResultSet rs = DB.executeQuery("select login, pwd from users"); 
             	while(rs.next()){
             		if(loginText.equals(rs.getString(1)) && pwdText.equals(rs.getString(2))) {
-                        JOptionPane.showMessageDialog(this, "Connecté avec succés!");
+                        Util.afficherInfo("Connecté avec succés!");
                         this.setVisible(false);
-            			new Main().afficher();
+            			new MainFrame().afficher();
             			return;
             		}
             	}
-            	JOptionPane.showMessageDialog(this, "Login ou mot de passe Invalide.");
+            	Util.afficherInfo("Login ou mot de passe Invalide.");
             } catch(ClassNotFoundException ex) {
-                JOptionPane.showMessageDialog(this, "Erreur lors de chargement de drive: " + ex.getMessage(), "ERREUR!", JOptionPane.ERROR_MESSAGE);
+            	Util.afficherErreur("Erreur lors de chargement de drive: " + ex.getMessage());
                 System.exit(1);
             }
             catch(SQLException ex) {
-            	JOptionPane.showMessageDialog(this, ex.getMessage(), "ERREUR!", JOptionPane.ERROR_MESSAGE);
+            	Util.afficherErreur("Erreur lors de connexion a la BDD de drive: " + ex.getMessage());
                 System.exit(1);
             }
         }
