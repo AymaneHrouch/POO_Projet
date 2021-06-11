@@ -1,5 +1,4 @@
 package interfaceGraphique;
-import javax.swing.JFrame;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -37,7 +36,7 @@ public class DB {
 		try {
 			return stmt.executeQuery(req);
 		} catch (SQLException e) {
-			Util.afficherErreur("Erreur lors de l'execution de la requete" + e.getMessage());
+			Util.afficherErreur("Erreur lors de l'execution de la commande SQL" + e.getMessage());
 			return null;
 		}
 	}

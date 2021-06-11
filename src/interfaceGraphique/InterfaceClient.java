@@ -1,19 +1,9 @@
 package interfaceGraphique;
 
-import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.table.DefaultTableModel;
 
 import entitees.Client;
 public class InterfaceClient extends Panel {
@@ -35,7 +25,7 @@ public class InterfaceClient extends Panel {
 		jLabels[2].setText("Adresse");
 		jLabels[3].setText("Téléphone");
 	}
-	
+	// verification de contenu des champs, est-ce qu'elles sont non vides, respecte
 	public boolean verifier() {
 		if( txtFields[0].getText().isEmpty() || 
 			txtFields[1].getText().isEmpty() ||
@@ -72,9 +62,9 @@ public class InterfaceClient extends Panel {
 				String requete = "INSERT INTO Client(nom,prenom,adresse,telephone)"
 						+ "VALUES('" + cl.nom + "', '" + cl.prenom + "', '" + 
 						cl.adresse + "', '" + cl.telephone + "')";
-				DB.executeUpdate(requete);
+				if(DB.executeUpdate(requete) == -1) return;
+
 				ajouterLigne(tableHeader.length, "SELECT * FROM client ORDER BY numeroclient DESC LIMIT 1");
-				clearTextFields();
 			}
 		});
 		
@@ -98,7 +88,8 @@ public class InterfaceClient extends Panel {
 						+ ", telephone= '" + cl.telephone + "'"
 						+ " WHERE numeroclient=" + id;
 				
-				DB.executeUpdate(requete);
+				if(DB.executeUpdate(requete) == -1) return;
+
 				modifierLigne(new String[] {id, cl.nom, cl.prenom, cl.adresse, cl.telephone}, y);
 			}
 		});

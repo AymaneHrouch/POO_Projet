@@ -5,46 +5,51 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class MainFrame extends JFrame {
-	JToolBar barre = new JToolBar ();
+	JToolBar barre = new JToolBar();
 	JButton deconnexion = new JButton("Deconnexion");
 	JTabbedPane tp = new JTabbedPane();
 	
 	public MainFrame() {
+		setLocationAndSize();
 		ajouterComposants();
+		ecouterDeconnexion();
+		this.setTitle("Gestion Des Commandes");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(null);
 		this.setBounds(0,0,1100,600);
 	}
 	
+	public void setLocationAndSize() {
+		barre.setBounds(0,0,1100,30);
+		tp.setBounds(0,30,1080,530);		
+	}
+	
 	public void ajouterComposants() {
 		barre.add(deconnexion);
-		deconnexion.addActionListener(new ActionListener() {	
-			public void actionPerformed(ActionEvent e) {
-				deconnexion();
-				new LoginFrame();
-			}
-		});
-		
 		barre.setRollover(true);
-		barre.setBounds(0,0,1100,30);
-		tp.setBounds(0,30,1100,570);
 		this.add(barre);
 		this.add(tp);
 	}
 	
-	
 	public void afficher() {
 		tp.add("Clients", new InterfaceClient());
-		tp.add("Produits", new InterfaceProduit());
+		tp.add("Produits", new InterfaceProduits());
 		tp.add("Commandes", new InterfaceCommande());
 		tp.add("Livraisons", new InterfaceLivraison());
 		tp.add("Factures", new InterfaceFacture());
 		this.setVisible(true);
 	}
-	 
-	public void deconnexion() {
+	
+	public void cacher() {
 		this.setVisible(false);
 	}
 	
-	
+	public void ecouterDeconnexion() {
+		deconnexion.addActionListener(new ActionListener() {	
+			public void actionPerformed(ActionEvent e) {
+				cacher();
+				new LoginFrame();
+			}
+		});
+	}
 }

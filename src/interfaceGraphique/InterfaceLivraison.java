@@ -1,19 +1,9 @@
 package interfaceGraphique;
 
-import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.table.DefaultTableModel;
 
 import entitees.Livraison;
 public class InterfaceLivraison extends Panel {
@@ -75,8 +65,9 @@ public class InterfaceLivraison extends Panel {
 				String requete = "INSERT INTO Livraison(dateLivraison,numerocommande)"
 						+ "VALUES('" + 
 						liv.dateLivraison + "', " + liv.fk_numerocommande + ")";
-				int res = DB.executeUpdate(requete);
-				System.out.println(res);
+				
+				if(DB.executeUpdate(requete) == -1) return;
+
 				ajouterLigne(tableHeader.length, "SELECT * FROM livraison ORDER BY numeroLivraison DESC LIMIT 1");
 				clearTextFields();
 			}
@@ -100,7 +91,7 @@ public class InterfaceLivraison extends Panel {
 						+ ", numerocommande= " + liv.fk_numerocommande + ""
 						+ " WHERE numerolivraison=" + id;
 				
-				DB.executeUpdate(requete);
+				if(DB.executeUpdate(requete) == -1) return;
 				modifierLigne(new String[] {id, liv.dateLivraison,  Integer.toString(liv.fk_numerocommande)}, y);
 			}
 		});

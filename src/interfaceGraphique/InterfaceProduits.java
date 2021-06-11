@@ -1,25 +1,15 @@
 package interfaceGraphique;
 
-import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.table.DefaultTableModel;
 
-import entitees.Produit;
-public class InterfaceProduit extends Panel {
-	Produit prd = new Produit();
+import entitees.Produits;
+public class InterfaceProduits extends Panel {
+	Produits prd = new Produits();
 	
-	public InterfaceProduit() {
+	public InterfaceProduits() {
 		super();
 		txtFields[3].setVisible(false);
 		tableName = "produit";
@@ -76,7 +66,8 @@ public class InterfaceProduit extends Panel {
 				String requete = "INSERT INTO Produit(nomproduit,quantite,prix)"
 						+ "VALUES('" + prd.nomproduit + "', '" + 
 						prd.quantite + "', '" + prd.prix + "')";
-				DB.executeUpdate(requete); 
+
+				if(DB.executeUpdate(requete) == -1) return;
 				ajouterLigne(tableHeader.length, "SELECT * FROM produit ORDER BY numeroproduit DESC LIMIT 1");
 
 				clearTextFields();
@@ -103,7 +94,7 @@ public class InterfaceProduit extends Panel {
 						+ ", prix= '" + prd.prix + "'"
 						+ " WHERE numeroproduit=" + id;
 				
-				DB.executeUpdate(requete);
+				if(DB.executeUpdate(requete) == -1) return;
 				modifierLigne(new String[] {id, prd.nomproduit, Integer.toString(prd.quantite), Double.toString(prd.prix)}, y);
 			}
 		});

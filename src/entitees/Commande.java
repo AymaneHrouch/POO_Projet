@@ -1,5 +1,4 @@
 package entitees;
-import java.util.Date;
 
 public class Commande {
 		public int numerocommande;
@@ -7,14 +6,10 @@ public class Commande {
 		public int fk_numeroclient;
 		public int fk_numeroproduit;
 		
-		
 		public Commande() {
 			numerocommande = 0;
 			datecommande = "";
 			fk_numeroclient = 0;
-			fk_numeroproduit = 0;
-			 
-		
-		
+			fk_numeroproduit = 0;	
 	}
 }

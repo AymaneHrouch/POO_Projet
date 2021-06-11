@@ -9,6 +9,5 @@ public class Livraison {
 		numeroLivraison = 0;
 		dateLivraison = "";
 		fk_numerocommande = 0;
-		
 	}
 }

@@ -1,19 +1,9 @@
 package interfaceGraphique;
 
-import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.table.DefaultTableModel;
 
 import entitees.Commande;
 public class InterfaceCommande extends Panel {
@@ -83,7 +73,8 @@ public class InterfaceCommande extends Panel {
 				String requete = "INSERT INTO Commande(datecommande,numeroclient,numeroproduit)"
 						+ "VALUES('" + cmd.datecommande + "', '" + 
 						cmd.fk_numeroclient + "', '" + cmd.fk_numeroproduit + "')";
-				DB.executeUpdate(requete);
+				
+				if(DB.executeUpdate(requete) == -1) return;
 				ajouterLigne(tableHeader.length, "SELECT * FROM commande ORDER BY numerocommande DESC LIMIT 1");
 				clearTextFields();
 			}
@@ -108,7 +99,7 @@ public class InterfaceCommande extends Panel {
 						+ ", adresse= '" + cmd.fk_numeroproduit + "'"
 						+ " WHERE numerocommande=" + id;
 				
-				DB.executeUpdate(requete);
+				if(DB.executeUpdate(requete) == -1) return;
 				modifierLigne(new String[] {id, cmd.datecommande,  Integer.toString(cmd.fk_numeroclient),  Integer.toString(cmd.fk_numeroproduit)}, y);
 			}
 		});

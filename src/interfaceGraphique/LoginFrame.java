@@ -2,63 +2,52 @@ package interfaceGraphique;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class LoginFrame extends JFrame implements ActionListener {
-    JLabel userLabel = new JLabel("USERNAME");
-    JLabel passwordLabel = new JLabel("PASSWORD");
-    JTextField userTextField = new JTextField();
-    JPasswordField passwordField = new JPasswordField();
-    JButton loginButton = new JButton("LOGIN");
+    JLabel utilisateurLabel = new JLabel("Utilisateur");
+    JLabel mdpLabel = new JLabel("Mot de passe");
+    JTextField utilisateurTextField = new JTextField();
+    JPasswordField mdpTextField = new JPasswordField();
+    JButton btn = new JButton("Se connecter");
     
-    public LoginFrame()
-    {
+    public LoginFrame() {
        //Calling methods inside constructor.
         setLocationAndSize();
         ajouterComposants();
-        loginButton.addActionListener(this);
+        btn.addActionListener(this);
         this.setLayout(null);
-        this.setTitle("Login Form");
+        this.setTitle("Connexion");
         this.setBounds(10,10,370,600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setVisible(true);
     }
     
-    public void setLocationAndSize()
-    {
-        //Setting location and Size of each components using setBounds() method.
-        userLabel.setBounds(50,150,100,30);
-        passwordLabel.setBounds(50,220,100,30);
-        userTextField.setBounds(150,150,150,30);
-        passwordField.setBounds(150,220,150,30);
-        loginButton.setBounds(135,300,100,30);
+    public void setLocationAndSize() {
+    	utilisateurLabel.setBounds(50,150,100,30);
+    	mdpLabel.setBounds(50,220,100,30);
+    	utilisateurTextField.setBounds(150,150,150,30);
+        mdpTextField.setBounds(150,220,150,30);
+        btn.setBounds(75,300,200,30);
     }
     
-    public void ajouterComposants()
-    {
-       //Adding each components to the Container
-        this.add(userLabel);
-        this.add(passwordLabel);
-        this.add(userTextField);
-        this.add(passwordField);
-        this.add(loginButton);
+    public void ajouterComposants() {
+        this.add(utilisateurLabel);
+        this.add(mdpLabel);
+        this.add(utilisateurTextField);
+        this.add(mdpTextField);
+        this.add(btn);
     }
     
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == loginButton) {
+        if (e.getSource() == btn) {
             String loginText;
             String pwdText;
-            loginText = userTextField.getText();
-            pwdText = new String(passwordField.getPassword());
+            loginText = utilisateurTextField.getText();
+            pwdText = new String(mdpTextField.getPassword());
             try {
-            	Class.forName("com.mysql.cj.jdbc.Driver");
-            	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/poo_db","root","");
-            	Statement stmt = con.createStatement();
             	ResultSet rs = DB.executeQuery("select login, pwd from users"); 
             	while(rs.next()){
             		if(loginText.equals(rs.getString(1)) && pwdText.equals(rs.getString(2))) {
@@ -69,9 +58,6 @@ public class LoginFrame extends JFrame implements ActionListener {
             		}
             	}
             	Util.afficherInfo("Login ou mot de passe Invalide.");
-            } catch(ClassNotFoundException ex) {
-            	Util.afficherErreur("Erreur lors de chargement de drive: " + ex.getMessage());
-                System.exit(1);
             }
             catch(SQLException ex) {
             	Util.afficherErreur("Erreur lors de connexion a la BDD de drive: " + ex.getMessage());

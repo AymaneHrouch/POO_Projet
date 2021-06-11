@@ -9,7 +9,7 @@ public class Util {
     } 
     
     public static void afficherInfo(String message) {
-    	JOptionPane.showMessageDialog(null, message, " Alert! ", JOptionPane.INFORMATION_MESSAGE);
+    	JOptionPane.showMessageDialog(null, message, "Alert!", JOptionPane.INFORMATION_MESSAGE);
     }
     
     public static void afficherInfo(String message, String titre) {

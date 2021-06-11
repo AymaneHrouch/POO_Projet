@@ -1,5 +1,4 @@
 package entitees;
-import java.util.Date;
 
 public class Facture {
 	public int numeroFacture;

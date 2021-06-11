@@ -1,19 +1,9 @@
 package interfaceGraphique;
 
-import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.table.DefaultTableModel;
 
 import entitees.Facture;
 public class InterfaceFacture extends Panel {
@@ -22,6 +12,7 @@ public class InterfaceFacture extends Panel {
 	public InterfaceFacture() {
 		super();
 		txtFields[3].setVisible(false);
+		dateFormat.setVisible(true);
 		tableName = "facture";
 		idText = "numerofacture";
 		tableHeader = new String[] { idText, "date Facture", "Montant", "Num. Commande"};
@@ -50,7 +41,7 @@ public class InterfaceFacture extends Panel {
 			return false;
 		}
 		if(!txtFields[1].getText().matches("\\d*")) {
-			Util.afficherInfo("Le numero de commande doit �tre un nombre entier.", "Numero invalide.");
+			Util.afficherInfo("Le numero de commande doit etre un nombre entier.", "Numero invalide.");
 			return false;
 		
 		}
@@ -74,7 +65,7 @@ public class InterfaceFacture extends Panel {
 				String requete = "INSERT INTO Facture(datefacture,montant,numerocommande)"
 						+ "VALUES('" + fct.dateFacture + "', '" + 
 						fct.montant + "', '" + fct.fk_numerocommande + "')";
-				DB.executeUpdate(requete); 
+				if(DB.executeUpdate(requete) == -1) return;
 				ajouterLigne(tableHeader.length, "SELECT * FROM facture ORDER BY numerofacture DESC LIMIT 1");
 				clearTextFields();
 			}
@@ -99,7 +90,7 @@ public class InterfaceFacture extends Panel {
 						+ ", adresse= '" + fct.fk_numerocommande + "'"
 						+ " WHERE numeroclient=" + id;
 				
-				DB.executeUpdate(requete);
+				if(DB.executeUpdate(requete) == -1) return;
 				modifierLigne(new String[] {id, fct.dateFacture, Double.toString(fct.montant),Integer.toString(fct.fk_numerocommande)}, y);
 			}
 		});
