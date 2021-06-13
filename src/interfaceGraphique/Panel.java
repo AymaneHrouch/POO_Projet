@@ -233,9 +233,9 @@ public abstract class Panel extends JPanel {
 					Util.afficherInfo(idText + " Inexistant");
 					return;
 				}
+				if(DB.executeUpdate(requete) == -1) return;
 				model = (DefaultTableModel) tb.getModel();
 				model.removeRow(y);
-				DB.executeUpdate(requete);
 				idTF.setText("");
 			}
 		});

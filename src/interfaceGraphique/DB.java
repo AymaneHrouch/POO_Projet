@@ -27,7 +27,7 @@ public class DB {
 		try {
 			return stmt.executeUpdate(req);
 		} catch (SQLException e) {
-			Util.afficherErreur("Erreur lors de l'execution de la requete" + e.getMessage());
+			Util.afficherErreur("Erreur lors de l'execution de la requete " + e.getMessage());
 			return -1;
 		}
 	}
@@ -36,7 +36,7 @@ public class DB {
 		try {
 			return stmt.executeQuery(req);
 		} catch (SQLException e) {
-			Util.afficherErreur("Erreur lors de l'execution de la commande SQL" + e.getMessage());
+			Util.afficherErreur("Erreur lors de l'execution de la commande SQL " + e.getMessage());
 			return null;
 		}
 	}
