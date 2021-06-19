@@ -41,7 +41,7 @@ public class InterfaceProduits extends Panel {
 		}
 
 		if(!txtFields[2].getText().matches("[\\d\\.]*")) {
-			Util.afficherInfo("Le prix doit �tre un nombre r�el.", "Prix invalide.");
+			Util.afficherInfo("Le prix doit etre un nombre reel.", "Prix invalide.");
 			return false;
 		}
 		
@@ -59,7 +59,7 @@ public class InterfaceProduits extends Panel {
 		btnAjouter.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				verifier();
+				if(!verifier()) return;
 				
 				remplirProduit();
 
