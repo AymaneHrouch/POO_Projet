@@ -6,4 +6,4 @@ This project helped solidify my understanding of OOP concepts. Studying just the
 
 Really enojoyed this experience, learning something new feels good :).
 
-Vous pouvez regarder une [petit démonstration sur Youtube](https://www.youtube.com/watch?v=1RQnQZW9qs).
+Vous pouvez regarder une [petit démonstration sur Youtube](https://www.youtube.com/watch?v=1RQnQZW9qs8).
